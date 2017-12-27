@@ -1,19 +1,20 @@
-class responder:
-	"""AIの応答を制御するクラス
+from unmo import Unmo
 
-	プロパティ：
-	name -- Responderオブジェクトの名前
-	"""
 
-	def ___init__(self,name):
-		"""文字列を受取、自身のnameに設定する"""
-		self._name =  name
+def build_prompt(unmo):
+	"""AIインスタンスを取り、AIとResponderの名前を整形して返す"""
+	return '{name}:{responder}> '.format(name=unmo.name,
+										 responder=unmo.responder_name)
 
-	def response(self,text):
-		"""ユーザーからの入力(text)を受け取り、AIの応答を生成して返す。"""
-		return '{}ってなに？'.format(text)
 
-	@property
-	def name(self):
-		"""応答オブジェクトの名前"""
-		return self._name
+if __name__ == '__main__':
+	print('Unmo System prototype : proto')
+	proto = Unmo('proto')
+	while True:
+		text = input('> ')
+		if not text:
+			break
+
+		response = proto.dialogue(text)
+		print('{prompt}{response}'.format(prompt=build_prompt(proto),
+										  response=response))
