@@ -43,7 +43,16 @@ class RandomResponder(Responder):
     RESPONSES -- 応答する文字列のリスト
     """
 
-    RESPONSES = ['今日はさむいね', 'チョコたべたい', 'きのう10円ひろった']
+    def __init__(self, name):
+        """文字列nameを受け取り、オブジェクトの名前に設定する。
+        'dics/random.txt'ファイルから応答文字列のリストを読み込む。"""
+        super().__init__(name)
+        self._responses = []
+        with open('dics/random.txt', encoding = 'utf-8') as f:
+            for line in f:
+                if line:
+                    line = line.strip()
+                    self._responses.append(line)
 
     def response(self, _):
         """ユーザーからの入力は受け取るが、使用せずにランダムな応答を返す。"""

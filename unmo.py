@@ -13,11 +13,17 @@ class Unmo:
 		"""文字列を受け取り、コアインスタンスの名前に設定する。
 		’What' Responderインスタンスを作成し、保持する。
 		"""
+		self._responders = {
+			'what': WhatResponder('What').
+			'random': RandomResponder('Random')
+		}
 		self._name = name
-		self._responder = RandomResponder('Random')
+		self._responder = self._responders['random']
 
 	def dialogue(self, text):
 		"""ユーザーからの入力を受け取り、Responderに処理させた結果を返す。"""
+		chosen_key = choice(list(self._responders.keys()))
+		self._responder = self._responders[chosen_key]
 		return self._responder.response(text)
 
 	@property
